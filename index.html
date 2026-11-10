@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Epoch — every age begins with an order</title>
+<meta name="description" content="Epoch is real-time strategy rebuilt for the phone. Explore the fog, raise an economy, and command twelve armies across four civilizations.">
+<meta name="theme-color" content="#0b0a09">
+<meta property="og:title" content="Epoch — every age begins with an order">
+<meta property="og:description" content="Not a timer to wait out, a war to command. Real-time strategy rebuilt for the phone.">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500&family=Geist:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/img/archipelago.webp">
+<link rel="stylesheet" href="styles.css">
+<noscript><style>
+  .track{height:auto!important}.pin{position:static!important;height:auto!important;overflow:visible!important}
+  .stage,.clouds,.rings,.grid,.rail,.menu-btn{display:none!important}
+  .scene,.civ{position:relative!important;inset:auto!important;min-height:72vh;padding:16vh 6vw 10vh 12vw;border-bottom:1px solid rgba(255,255,255,.2);pointer-events:auto!important}
+  .scene .head,.scene .foot,.civ-text,.civ-plate,.plate,.gesture{position:static!important;margin-top:28px}
+  .civ-plate img{position:static!important;max-width:520px;height:auto!important}
+  .four,.match{position:static!important;opacity:1!important;background:#efe8d8}.four-index,.four-note,.match-plate,.play-text{display:none}
+  .rv{opacity:1!important;transform:none!important;filter:none!important}
+</style></noscript>
+</head>
+<body data-theme="dark" data-zone="stage">
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="star" viewBox="-8 -8 16 16"><path d="M0-8C1.2-1.2 1.2-1.2 8 0 1.2 1.2 1.2 1.2 0 8-1.2 1.2-1.2 1.2-8 0-1.2-1.2-1.2-1.2 0-8Z"/></symbol>
+  </defs>
+</svg>
+
+<a class="skip" href="#ledger">Skip the scroll sequence</a>
+
+<!-- ───────────── fixed chrome: mark, menu, rail, grid ───────────── -->
+<header class="chrome">
+  <div class="grid" aria-hidden="true">
+    <i class="gl gl-v1"></i>
+    <i class="gl gl-h1"></i>
+    <i class="gl gl-h2"></i>
+    <i class="gl gl-v2"></i>
+    <svg class="star star-1"><use href="#star"/></svg>
+    <svg class="star star-2"><use href="#star"/></svg>
+  </div>
+
+  <a class="mark" href="#top" aria-label="Epoch, back to the top">
+    <svg viewBox="0 0 16 22" width="15" height="21" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M2.5 1.5h11M2.5 20.5h11M4 1.5c0 5.2 3.4 6.6 3.4 9.5S4 15.3 4 20.5M12 1.5c0 5.2-3.4 6.6-3.4 9.5s3.4 4.3 3.4 9.5"/>
+      <path d="M6.4 17.4h3.2"/>
+    </svg>
+  </a>
+
+  <button class="menu-btn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="menu">
+    <span></span><span></span><span></span><span></span>
+  </button>
+
+  <nav class="rail" aria-label="Sections">
+    <a href="#top" data-goto="explore" data-rail="age"><i></i><b>The age</b></a>
+    <a href="#top" data-goto="river" data-rail="four"><i></i><b>The four</b></a>
+    <a href="#top" data-goto="sea" data-rail="sea"><i></i><b>The sea</b></a>
+    <a href="#ledger" data-rail="ledger"><i></i><b>The ledger</b></a>
+    <a href="#questions" data-rail="questions"><i></i><b>Questions</b></a>
+  </nav>
+
+  <a class="btn btn--sm btn--top" href="mailto:couson@foxmail.com?subject=Epoch%20beta%20access"><span>Request access</span><i class="arr" aria-hidden="true">→</i></a>
+</header>
+
+<nav class="menu" id="menu" aria-label="Menu">
+  <a href="#top" data-goto="explore"><b>01</b><em>The age</em></a>
+  <a href="#top" data-goto="river"><b>02</b><em>The four</em></a>
+  <a href="#top" data-goto="sea"><b>03</b><em>The sea</em></a>
+  <a href="#ledger"><b>04</b><em>The ledger</em></a>
+  <a href="#questions"><b>05</b><em>Questions</em></a>
+  <a href="mailto:couson@foxmail.com?subject=Epoch%20beta%20access"><b>06</b><em>Request access</em></a>
+</nav>
+
+<main id="top">
+
+  <!-- ───────────── the pinned stage ───────────── -->
+  <div class="track" id="track">
+    <div class="pin">
+      <canvas class="stage" aria-hidden="true"></canvas>
+
+      <svg class="rings" data-with="hero" viewBox="0 0 1000 1000" aria-hidden="true">
+        <g>
+          <circle cx="500" cy="500" r="26"/><circle cx="500" cy="500" r="58"/><circle cx="500" cy="500" r="96"/>
+          <circle cx="500" cy="500" r="140"/><circle cx="500" cy="500" r="190"/><circle cx="500" cy="500" r="246"/>
+          <circle cx="500" cy="500" r="308"/><circle cx="500" cy="500" r="376"/><circle cx="500" cy="500" r="450"/>
+        </g>
+      </svg>
+
+      <div class="clouds" data-with="creed" aria-hidden="true">
+        <canvas class="cloud cloud-1" data-cloud="3"></canvas>
+        <canvas class="cloud cloud-2" data-cloud="8"></canvas>
+        <canvas class="cloud cloud-3" data-cloud="5"></canvas>
+      </div>
+
+      <div class="grain" aria-hidden="true"></div>
+
+      <!-- 00 · hero -->
+      <section class="scene scene--hero" data-beat="hero" data-bg="archipelago" data-len="0.8" style="--gy:.72;--gx:.86">
+        <div class="head">
+          <h1 class="h"><span class="rv">Every age begins</span><br><span class="rv">with an order.</span></h1>
+          <p class="sub rv">Not a timer to wait out,<br>a war to command.</p>
+          <a class="btn rv" href="mailto:couson@foxmail.com?subject=Epoch%20beta%20access"><span>Request beta access</span><i class="arr" aria-hidden="true">→</i></a>
+        </div>
+        <div class="foot">
+          <span class="tag rv">At your command</span>
+          <p class="rv">Epoch is real-time strategy rebuilt for the phone. Explore the fog, raise an economy, take villages and march on the enemy capital: a whole war, designed to fit in fifteen minutes.</p>
+        </div>
+        <p class="cue rv" aria-hidden="true">Scroll<i></i></p>
+      </section>
+
+      <!-- 01 · the picture comes into focus -->
+      <section class="scene scene--low" data-beat="reveal" data-bg="archipelago" data-len="1.3" style="--gy:.86;--gx:.93">
+        <div class="foot">
+          <span class="tag rv">Plate 01</span>
+          <p class="rv">The Tidal Archipelago. One of seven maps, and one of two you will need a navy for.</p>
+        </div>
+        <p class="plate rv">Concept art</p>
+      </section>
+
+      <!-- 02–05 · the match: an illustrated game, drawn live by table.js -->
+      <div class="match" data-group style="--gy:.8">
+        <ol class="four-index" aria-hidden="true">
+          <li data-for="explore">I <span>Explore</span></li>
+          <li data-for="build">II <span>Build</span></li>
+          <li data-for="command">III <span>Command</span></li>
+          <li data-for="finish">IV <span>Finish</span></li>
+        </ol>
+
+        <figure class="match-plate">
+          <canvas class="table" role="img" aria-label="An illustrated match on a map: knights scout through fog to a village, a farm, lumber camp and barracks are placed by dragging, armies are ordered to capture the village, then a battle and a catapult siege destroy the enemy capital."></canvas>
+          <div class="tb-res" aria-hidden="true">
+            <span><b>Food</b><i data-res="food">80</i></span>
+            <span><b>Wood</b><i data-res="wood">105</i></span>
+            <span><b>Gold</b><i data-res="gold">95</i></span>
+            <span><b>Stone</b><i data-res="stone">105</i></span>
+            <span class="tb-right"><b>Armies</b><i data-res="armies">1/12</i></span>
+            <span><b>Era</b><i data-res="era">I</i></span>
+          </div>
+          <div class="tb-rack" aria-hidden="true"><ul></ul></div>
+          <p class="tb-alert" aria-hidden="true">Under attack</p>
+          <div class="tb-victory"><b>Victory</b><span>Enemy capital destroyed</span><button class="btn btn--sm tb-again" type="button"><span>Play again</span><i class="arr" aria-hidden="true">→</i></button></div>
+          <p class="tb-hint" aria-live="polite"></p>
+          <button class="btn btn--sm tb-play" type="button"><span>Take command</span><i class="arr" aria-hidden="true">→</i></button>
+          <figcaption>An illustrated match you can take over <i>·</i> Not captured footage</figcaption>
+        </figure>
+
+        <article class="civ step play-text">
+          <div class="civ-text">
+            <p class="civ-no">Your move</p>
+            <h2 class="h">You try it.</h2>
+            <p class="civ-desc">Hold a blue banner, drag, release. Drag open ground to move the map. The ford is the only way across the river, and it is the catapults that bring a capital down.</p>
+            <ol class="play-goals">
+              <li data-goal="scout">Scout the fog</li>
+              <li data-goal="village">Take the village</li>
+              <li data-goal="line">Break their line</li>
+              <li data-goal="capital">Bring down the capital</li>
+            </ol>
+          </div>
+        </article>
+
+        <article class="civ step" data-beat="explore" data-bg="paper" data-wipe="column" data-len="1.5" data-rail="age">
+          <div class="civ-text">
+            <p class="civ-no rv">I <i>/ IV</i></p>
+            <h2 class="h rv">You explore it.</h2>
+            <p class="civ-desc rv">Every match opens in fog. Hold a banner, drag it down the road, let go, and the map draws itself as the riders pass: a ford, a seam of gold, a village nobody holds yet.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Order</dt><dd>Hold, drag, release</dd></div>
+              <div><dt>Fog</dt><dd>Lifts where you march</dd></div>
+              <div><dt>Forest</dt><dd>Hides an army</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="civ step" data-beat="build" data-bg="paper" data-len="1.3" data-rail="age">
+          <div class="civ-text">
+            <p class="civ-no rv">II <i>/ IV</i></p>
+            <h2 class="h rv">You build it.</h2>
+            <p class="civ-desc rv">Food, wood, gold and stone gather themselves. You decide what stands where: drag from your capital to open ground and a farm, a lumber camp or a barracks goes up, two at a time.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Resources</dt><dd>Four, self-gathering</dd></div>
+              <div><dt>Slots</dt><dd>Two per base</dd></div>
+              <div><dt>Where</dt><dd>Inside your territory</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="civ step" data-beat="command" data-bg="paper" data-len="1.3" data-rail="age">
+          <div class="civ-text">
+            <p class="civ-no rv">III <i>/ IV</i></p>
+            <h2 class="h rv">You command it.</h2>
+            <p class="civ-desc rv">Soldiers march as armies, never one by one. Drag the swordsmen's banner onto the village and they go; the order stands until you change it, and the village is yours when the ring closes.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Cap</dt><dd>Twelve armies</dd></div>
+              <div><dt>Stance</dt><dd>Guard or advance</dd></div>
+              <div><dt>Villages</dt><dd>Captured, not built</dd></div>
+            </dl>
+          </div>
+        </article>
+
+        <article class="civ step" data-beat="finish" data-bg="paper" data-len="1.5" data-rail="age">
+          <div class="civ-text">
+            <p class="civ-no rv">IV <i>/ IV</i></p>
+            <h2 class="h rv">You finish it.</h2>
+            <p class="civ-desc rv">The enemy comes down the road. Archers loose over the line, the line holds, and the catapults come up behind it. A match ends when the last enemy capital falls.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Victory</dt><dd>Last capital standing</dd></div>
+              <div><dt>Siege</dt><dd>Catapults, then cannon</dd></div>
+              <div><dt>Length</dt><dd>Ten to fifteen minutes</dd></div>
+            </dl>
+          </div>
+        </article>
+      </div>
+
+      <!-- 06 · the creed -->
+      <section class="scene scene--creed" data-beat="creed" data-bg="sky" data-wipe="rise" data-len="1.6" data-rail="age" style="--gy:.66;--gx:.58">
+        <div class="head">
+          <h2 class="h"><span class="rv">All of the decisions.</span><br class="d"> <span class="rv">None of the busywork.</span></h2>
+        </div>
+        <div class="foot">
+          <span class="tag rv">The creed</span>
+          <p class="rv">Most strategy on a phone is a timer wearing armor. Epoch keeps what makes the genre worth playing (scouting, timing, terrain, the gamble of an early attack) and removes the clicking that never fit a touchscreen.</p>
+        </div>
+      </section>
+
+      <!-- 07–10 · the four -->
+      <div class="four" data-group style="--gy:.8">
+        <p class="four-note">Four civilizations <i>·</i> Sixteen building forms each <i>·</i> Rendered in-engine</p>
+        <ol class="four-index" aria-hidden="true">
+          <li data-for="river">I <span>River Federation</span></li>
+          <li data-for="ridge">II <span>Ridge Covenant</span></li>
+          <li data-for="sand">III <span>Sand Caravan</span></li>
+          <li data-for="iron">IV <span>Iron League</span></li>
+        </ol>
+
+        <article class="civ" data-beat="river" data-bg="paper" data-wipe="fall" data-len="1.15" data-rail="four">
+          <div class="civ-text">
+            <p class="civ-no rv">I <i>/ IV</i></p>
+            <h2 class="h rv">River <br>Federation</h2>
+            <p class="civ-zh rv">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9c2.5-3 4.5-3 7 0s4.5 3 7 0c1.3-1.5 2.5-1.6 4-1.6M3 15.5c2.5-3 4.5-3 7 0s4.5 3 7 0c1.3-1.5 2.5-1.6 4-1.6"/></svg>
+              <span lang="zh-Hans">河湾联邦</span>
+            </p>
+            <p class="civ-desc rv">Terracotta roofs over stone and timber, arcades open to a courtyard. The Federation strikes at a quicker cadence and turns its ships around faster in port.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Exclusive unit</dt><dd>River Guards</dd></div>
+              <div><dt>Edge</dt><dd>Attack cadence</dd></div>
+              <div><dt>Emblem</dt><dd>Wave</dd></div>
+            </dl>
+          </div>
+          <figure class="civ-plate rv">
+            <img src="assets/img/civ-river.webp" width="989" height="896" alt="River Federation town center: a timber-framed hall with terracotta roofs, an arcade and a stone bell tower.">
+            <figcaption>Town center <i>·</i> In-engine render</figcaption>
+          </figure>
+        </article>
+
+        <article class="civ" data-beat="ridge" data-bg="paper" data-len="1" data-rail="four">
+          <div class="civ-text">
+            <p class="civ-no rv">II <i>/ IV</i></p>
+            <h2 class="h rv">Ridge <br>Covenant</h2>
+            <p class="civ-zh rv">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2.5 19 9 7l3.5 5.5L15 9l6.5 10z"/></svg>
+              <span lang="zh-Hans">山脊盟约</span>
+            </p>
+            <p class="civ-desc rv">Steep shingle roofs, exposed beams, halls raised on stilts and braces. The Covenant's archers reach further, and its ships see further.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Exclusive unit</dt><dd>Ridge Rangers</dd></div>
+              <div><dt>Edge</dt><dd>Ranged reach</dd></div>
+              <div><dt>Emblem</dt><dd>Peak</dd></div>
+            </dl>
+          </div>
+          <figure class="civ-plate rv">
+            <img src="assets/img/civ-ridge.webp" width="973" height="927" loading="lazy" alt="Ridge Covenant town center: a steep-roofed timber hall with an open braced watchtower.">
+            <figcaption>Town center <i>·</i> In-engine render</figcaption>
+          </figure>
+        </article>
+
+        <article class="civ" data-beat="sand" data-bg="paper" data-len="1" data-rail="four">
+          <div class="civ-text">
+            <p class="civ-no rv">III <i>/ IV</i></p>
+            <h2 class="h rv">Sand <br>Caravan</h2>
+            <p class="civ-zh rv">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 9-9 9-9-9zM12 8l4 4-4 4-4-4z"/></svg>
+              <span lang="zh-Hans">砂海商盟</span>
+            </p>
+            <p class="civ-desc rv">Pale earthen walls, flat parapets, domes, awnings and wind towers. The Caravan simply arrives first: every army it fields marches faster.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Exclusive unit</dt><dd>Dune Riders</dd></div>
+              <div><dt>Edge</dt><dd>March speed</dd></div>
+              <div><dt>Emblem</dt><dd>Diamond</dd></div>
+            </dl>
+          </div>
+          <figure class="civ-plate rv">
+            <img src="assets/img/civ-sand.webp" width="1103" height="884" loading="lazy" alt="Sand Caravan town center: pale flat-roofed halls with two domes, a blue awning and a wind tower.">
+            <figcaption>Town center <i>·</i> In-engine render</figcaption>
+          </figure>
+        </article>
+
+        <article class="civ" data-beat="iron" data-bg="paper" data-len="1.15" data-rail="four">
+          <div class="civ-text">
+            <p class="civ-no rv">IV <i>/ IV</i></p>
+            <h2 class="h rv">Iron <br>League</h2>
+            <p class="civ-zh rv">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h12v5H6zM12 10v10"/></svg>
+              <span lang="zh-Hans">铁炉同盟</span>
+            </p>
+            <p class="civ-desc rv">Thick grey stone under low slate roofs, iron-bound, buttressed, always smoking. The League trades speed for armor and wins the long siege.</p>
+            <dl class="civ-facts rv">
+              <div><dt>Exclusive unit</dt><dd>Iron Sentinels</dd></div>
+              <div><dt>Edge</dt><dd>Armor, at a slower march</dd></div>
+              <div><dt>Emblem</dt><dd>Hammer</dd></div>
+            </dl>
+          </div>
+          <figure class="civ-plate rv">
+            <img src="assets/img/civ-iron.webp" width="1200" height="1013" loading="lazy" alt="Iron League town center: a grey stone hall with slate roofs, chimneys and a crenellated tower.">
+            <figcaption>Town center <i>·</i> In-engine render</figcaption>
+          </figure>
+        </article>
+      </div>
+
+      <!-- 11 · the sea -->
+      <section class="scene" data-beat="sea" data-bg="naval" data-wipe="tide" data-len="1.8" data-rail="sea" style="--gy:.7;--gx:.88">
+        <div class="head">
+          <h2 class="h"><span class="rv">The coast is</span><br><span class="rv">a second front.</span></h2>
+        </div>
+        <div class="foot">
+          <span class="tag rv">Naval warfare</span>
+          <p class="rv">Fire ships, bow ships, transports and trade ships launch from shoreline docks. Hold the forward ports, pay for repairs in timber, and put an army ashore wherever the beach is gentle enough.</p>
+        </div>
+        <p class="plate rv">Plate 02 <i>·</i> Fire ships in the strait <i>·</i> Concept art</p>
+      </section>
+
+      <!-- 12 · out to ink -->
+      <section class="scene" data-beat="out" data-bg="ink" data-wipe="noise" data-len="0.7" data-rail="sea" style="--gy:.5;--gx:.5"></section>
+    </div>
+  </div>
+
+  <!-- ───────────── the ledger ───────────── -->
+  <section class="ledger" id="ledger" data-section="ledger">
+    <header class="ledger-head">
+      <div>
+        <span class="tag" data-reveal>The ledger</span>
+        <h2 class="h" data-reveal>The whole war,<br>counted.</h2>
+      </div>
+      <p data-reveal>Small numbers, on purpose. Each one is a decision you can hold in your head while the map is on fire.</p>
+    </header>
+
+    <dl class="ledger-grid">
+      <div class="cell" data-reveal><dt>Civilizations</dt><dd class="num">4</dd><dd class="note">Each with its own architecture and one exclusive unit.</dd></div>
+      <div class="cell" data-reveal><dt>Maps</dt><dd class="num">7</dd><dd class="note">Valley, highland, strait, canyon, frontier, archipelago, basin.</dd></div>
+      <div class="cell" data-reveal><dt>Eras</dt><dd class="num">3</dd><dd class="note">The third one brings the siege cannon.</dd></div>
+      <div class="cell" data-reveal><dt>Armies</dt><dd class="num">12</dd><dd class="note">The cap per player. Soldiers march as banners, not as clicks.</dd></div>
+      <div class="cell" data-reveal><dt>Building forms</dt><dd class="num">16</dd><dd class="note">Towers, walls and gates: first in timber, then in stone.</dd></div>
+      <div class="cell" data-reveal><dt>Resources</dt><dd class="num">4</dd><dd class="note">Food, wood, gold and stone. Forests and mines run dry.</dd></div>
+      <div class="cell" data-reveal><dt>Seats</dt><dd class="num">2<span>–</span>4</dd><dd class="note">Human or AI, in any teams. Allies share sight, not purses.</dd></div>
+      <div class="cell" data-reveal><dt>Languages</dt><dd class="num">2</dd><dd class="note">English and <span lang="zh-Hans">中文</span>.</dd></div>
+    </dl>
+  </section>
+
+  <!-- ───────────── questions ───────────── -->
+  <section class="faq" id="questions" data-section="questions">
+    <div class="faq-bg" aria-hidden="true"><img src="assets/img/economy.webp" alt="" loading="lazy" width="1672" height="941"></div>
+    <div class="faq-in">
+      <header class="faq-title">
+        <span class="tag" data-reveal>Questions</span>
+        <h2 class="h" data-reveal>Asked before <em>marching</em></h2>
+      </header>
+
+      <div class="faq-list">
+        <details data-reveal open>
+          <summary>What is Epoch?<svg class="pm" aria-hidden="true"><use href="#star"/></svg></summary>
+          <p>A real-time strategy game built for the iPhone and played in landscape. You explore a fogged map, grow an economy, capture villages and destroy the opposing headquarters. There are no overnight timers and nothing to collect while you are away.</p>
+        </details>
+        <details data-reveal>
+          <summary>Can I play it now?<svg class="pm" aria-hidden="true"><use href="#star"/></svg></summary>
+          <p>Not publicly. Epoch is a playable prototype in closed beta: some art is still procedural, the AI is simple, and balance and performance are being tested on real phones. Access is by invitation while that work continues.</p>
+        </details>
+        <details data-reveal>
+          <summary>How long is a match?<svg class="pm" aria-hidden="true"><use href="#star"/></svg></summary>
+          <p>The game is designed around ten to fifteen minutes: long enough for an economy, a scouting mistake and a comeback, short enough for one sitting.</p>
+        </details>
+        <details data-reveal>
+          <summary>How do you command an army with one thumb?<svg class="pm" aria-hidden="true"><use href="#star"/></svg></summary>
+          <p>Hold, drag, release. Hold an army's banner, drag to a place or a target, and let go. Building and training work the same way, and dragging back to where you started cancels. Orders persist, so you set intent instead of babysitting.</p>
+        </details>
+        <details data-reveal>
+          <summary>Can I play with friends?<svg class="pm" aria-hidden="true"><use href="#star"/></svg></summary>
+          <p>Yes. A match seats two to four players, human or AI, in whatever teams you set. Today that means invited friend rooms; public matchmaking and accounts are not built yet.</p>
+        </details>
+        <details data-reveal>
+          <summary>Which devices?<svg class="pm" aria-hidden="true"><use href="#star"/></svg></summary>
+          <p>iPhone first, in landscape. Mac builds exist for development and testing. iPad, Android and PC are possibilities, not promises.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ───────────── enlist ───────────── -->
+  <footer class="fin" id="enlist" data-section="enlist">
+    <div class="fin-clouds" aria-hidden="true">
+      <canvas class="cloud fin-cloud-1" data-cloud="11"></canvas>
+      <canvas class="cloud fin-cloud-2" data-cloud="4"></canvas>
+      <canvas class="cloud fin-cloud-3" data-cloud="17"></canvas>
+    </div>
+
+    <div class="fin-frame">
+      <svg class="star fin-star fin-star-1" aria-hidden="true"><use href="#star"/></svg>
+      <svg class="star fin-star fin-star-2" aria-hidden="true"><use href="#star"/></svg>
+      <p class="wordmark" data-reveal>epoch<span>.</span></p>
+      <p class="fin-tag" data-reveal>Not a timer to wait out,<br>a war to command.</p>
+      <a class="btn" href="mailto:couson@foxmail.com?subject=Epoch%20beta%20access" data-reveal><span>Request beta access</span><i class="arr" aria-hidden="true">→</i></a>
+      <div class="fin-meta">
+        <p>Project Epoch <i>·</i> couson-ai</p>
+        <p><a href="mailto:couson@foxmail.com?subject=Epoch%20beta%20access">couson@foxmail.com</a></p>
+      </div>
+    </div>
+
+    <p class="fin-note">Plates marked concept art are development paintings, not gameplay. The four town centers are rendered in-engine. Epoch is a playable prototype in closed testing, and everything here may change.</p>
+  </footer>
+</main>
+
+<script src="table.js" defer></script>
+<script src="main.js" defer></script>
+</body>
+</html>
